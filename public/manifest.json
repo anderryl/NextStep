@@ -1,6 +1,8 @@
 {
   "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "NextStep Bondurant",
+  "short_name": "NextStep",
+  "display": "standalone",
   "icons": [
     {
       "src": "favicon.ico",
@@ -19,7 +21,8 @@
     }
   ],
   "start_url": ".",
-  "display": "standalone",
+  "display": "fullscreen",
+  "scope": "/",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "white"
 }
