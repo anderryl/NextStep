@@ -52,8 +52,9 @@ export class App extends Component {
       db.transaction('rw', db.listings, async () => {
         db.listings.clear()
         db.listings.bulkAdd(data)
-      }).then(() => {
-        this.load()
+      })
+      this.setState({
+        contents: data
       })
     })
   }
