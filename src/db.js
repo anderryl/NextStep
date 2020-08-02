@@ -1,7 +1,7 @@
 import Dexie from "dexie"
 
 var db = new Dexie("ContentStorage");
-db.version(1).stores({
+db.version(2).stores({
   listings: "++id, title, blurb, type",
 });
 db.open().catch(function (e) {

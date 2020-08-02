@@ -7,16 +7,13 @@ import { Job } from "./PageTypes/Job";
 import { College } from "./PageTypes/College";
 import { Apprenticeship } from "./PageTypes/Apprenticeship";
 import { Category } from "./PageTypes/Category"
+import FirebaseContext from "./Contexts/FirebaseContext"
+import UserContext from "./Contexts/UserContext"
+import Firebase from "./Firebase"
 
 export class App extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      location: "Home",
-      contents: {},
-      props: {}
-    }
 
     this.category = this.category.bind(this)
     this.page = this.page.bind(this)
@@ -24,11 +21,24 @@ export class App extends Component {
     this.load = this.load.bind(this)
     this.update = this.update.bind(this)
     this.load = this.load.bind(this)
+    this.refresher = this.refresh.bind(this)
+
+    this.state = {
+      location: "Home",
+      contents: {},
+      props: {},
+      firebase: null,
+      user: undefined,
+      token: undefined
+    }
   }
 
   async componentDidMount() {
+    this.setState({
+      firebase: new Firebase(this.refresher)
+    })
     window.addEventListener('online', this.update);
-    if (navigator.onLine == true) {
+    if (navigator.onLine === true) {
       this.update()
     }
     else {
@@ -62,6 +72,18 @@ export class App extends Component {
   async loadJSON(url) {
     const res = await fetch(url);
     return await res.json();
+  }
+
+  refresh(user) {
+    if (user) {
+      this.setState({
+        user: user,
+        token: user.getIdToken()
+      })
+    }
+    this.setState({
+      user: user
+    })
   }
 
   home() {
@@ -115,7 +137,11 @@ export class App extends Component {
     }
     return (
       <Fragment>
-        { ret }
+        <FirebaseContext.Provider value = {this.state.firebase}>
+          <UserContext.Provider value = {this.state.user} >
+            { ret }
+          </UserContext.Provider>
+        </FirebaseContext.Provider>
       </Fragment>
     );
   }
