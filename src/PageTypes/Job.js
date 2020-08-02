@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { Layout } from "../Components/Layout";
+import React, { Component } from "react"
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import { Layout } from "../Components/Layout"
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 
 export class Job extends Component {
@@ -40,8 +40,8 @@ export class Job extends Component {
         <Row>
           <Col>
             <Breadcrumb>
-              <Breadcrumb.Item onClick = { this.home }>Home</Breadcrumb.Item>
-              <Breadcrumb.Item onClick = { this.jobs }>
+              <Breadcrumb.Item onClick = {this.home}>Home</Breadcrumb.Item>
+              <Breadcrumb.Item onClick = {this.jobs}>
                 Jobs
               </Breadcrumb.Item>
               <Breadcrumb.Item active>{this.state.title}</Breadcrumb.Item>
@@ -99,6 +99,6 @@ export class Job extends Component {
           </Col>
         </Row>
       </Layout>
-    );
+    )
   }
 }

@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import React, { Component } from "react"
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import Search from "../Components/Search"
 import { Layout } from "../Components/Layout"

@@ -37,7 +37,7 @@ export class App extends Component {
     this.setState({
       firebase: new Firebase(this.refresher)
     })
-    window.addEventListener('online', this.update);
+    window.addEventListener('online', this.update)
     if (navigator.onLine === true) {
       this.update()
     }
@@ -47,7 +47,7 @@ export class App extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('online', this.update);
+    window.removeEventListener('online', this.update)
   }
 
   async load() {
@@ -70,8 +70,8 @@ export class App extends Component {
   }
 
   async loadJSON(url) {
-    const res = await fetch(url);
-    return await res.json();
+    const res = await fetch(url)
+    return await res.json()
   }
 
   refresh(user) {
