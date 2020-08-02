@@ -22,6 +22,7 @@ export class App extends Component {
     this.update = this.update.bind(this)
     this.load = this.load.bind(this)
     this.refresher = this.refresh.bind(this)
+    this.add = this.add.bind(this)
 
     this.state = {
       location: "Home",
@@ -34,15 +35,13 @@ export class App extends Component {
   }
 
   async componentDidMount() {
-    this.setState({
-      firebase: new Firebase(this.refresher)
-    })
+    var fire = new Firebase(this.refresher)
     window.addEventListener('online', this.update)
     if (navigator.onLine === true) {
-      this.update()
+      this.update(fire)
     }
     else {
-      this.load()
+      this.load(fire)
     }
   }
 
@@ -50,22 +49,23 @@ export class App extends Component {
     window.removeEventListener('online', this.update)
   }
 
-  async load() {
+  async load(firebase) {
     var info =  await db.listings.toArray()
     this.setState({
-      contents: info
+      contents: info,
+      firebase: firebase
     })
   }
 
-  async update() {
-    this.loadJSON("https://bfscholar.s3.amazonaws.com/info.json").then(data => {
-      db.transaction('rw', db.listings, async () => {
-        db.listings.clear()
-        db.listings.bulkAdd(data)
-      })
-      this.setState({
-        contents: data
-      })
+  async update(firebase) {
+    var cont = await firebase.retreiveContents()
+    db.transaction('rw', db.listings, async () => {
+      db.listings.clear()
+      db.listings.bulkAdd(cont)
+    })
+    this.setState({
+      contents: cont,
+      firebase: firebase
     })
   }
 
@@ -110,6 +110,10 @@ export class App extends Component {
     })
   }
 
+  add(type) {
+    alert("add " + type)
+  }
+
   render() {
     var ret
     if (this.state.location === "Home") {
@@ -117,7 +121,7 @@ export class App extends Component {
     }
     else if (this.state.location === "Category") {
       const props = this.state.props
-      ret = <Category query = {props.query} type = {props.type} page = {this.page} home = {this.home} contents = {this.state.contents}/>
+      ret = <Category query = {props.query} type = {props.type} page = {this.page} home = {this.home} add = {this.add} contents = {this.state.contents}/>
     }
     else if (this.state.location === "Scholarships") {
       const props = this.state.props

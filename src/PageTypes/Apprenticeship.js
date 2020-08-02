@@ -35,11 +35,15 @@ export class Apprenticeship extends Component {
         <Row>
           <Col>
             <Breadcrumb>
-              <Breadcrumb.Item onClick = {this.home}>Home</Breadcrumb.Item>
+              <Breadcrumb.Item onClick = {this.home}>
+                Home
+              </Breadcrumb.Item>
               <Breadcrumb.Item onClick = {this.apprenticeships}>
                 Apprenticeships
               </Breadcrumb.Item>
-              <Breadcrumb.Item active>{this.state.title}</Breadcrumb.Item>
+              <Breadcrumb.Item active>
+                {this.state.title}
+              </Breadcrumb.Item>
             </Breadcrumb>
           </Col>
         </Row>

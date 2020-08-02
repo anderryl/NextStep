@@ -1,5 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
+import "firebase/firestore"
 
 const config = {
   apiKey: "AIzaSyDiYPifBrkUSOHLJjbjjdzrz5qew3rMLns",
@@ -18,11 +19,13 @@ class Firebase {
       app.initializeApp(config)
     }
     this.auth = app.auth()
+    this.firestore = app.firestore()
     this.user = null
     this.token = null
     this.signIn = this.signIn.bind(this)
     this.changed = this.changed.bind(this)
     this.callback = callback
+    this.contents = undefined
 
     app.auth().onAuthStateChanged(user => this.changed(user))
   }
@@ -59,6 +62,33 @@ class Firebase {
       return this.user
     }
     return this.auth.currentUser
+  }
+
+  async retreiveContents() {
+    const snapshot = await this.firestore.collection('content').get()
+    const ret = snapshot.docs.map(doc => doc.data());
+    return ret
+  }
+
+  async allowed(uid) {
+    const allow = [
+      "71V8Nwja2AeKWTPF5lBNI054vbC2"
+    ]
+    var perm
+    for (perm of allow) {
+      if (uid === perm) {
+        return true
+      }
+    }
+    return false
+  }
+
+  async setDocument(fragment) {
+    this.firestore.collection('content').doc(fragment.title).set(fragment);
+  }
+
+  async deleteDocument(fragment) {
+    this.firestore.collection('content').doc(fragment.title).delete()
   }
 }
 

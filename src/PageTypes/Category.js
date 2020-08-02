@@ -6,6 +6,9 @@ import Breadcrumb from "react-bootstrap/Breadcrumb"
 import { Layout } from "../Components/Layout"
 import { HeaderWrapper } from "../Components/Wrappers"
 import Fuse from "fuse.js"
+import FirebaseContext from "../Contexts/FirebaseContext"
+import UserContext from "../Contexts/UserContext"
+import Image from 'react-bootstrap/Image'
 
 export class Category extends Component {
   constructor(props) {
@@ -28,11 +31,13 @@ export class Category extends Component {
       contents: processed,
       order: processed,
       page: props.page,
-      home: props.home
+      home: props.home,
+      add: props.add
     }
     this.clicked = this.clicked.bind(this)
     this.home = this.home.bind(this)
     this.searched = this.searched.bind(this)
+    this.add = this.add.bind(this)
   }
 
   componentDidMount() {
@@ -72,6 +77,10 @@ export class Category extends Component {
     this.state.home()
   }
 
+  add() {
+    this.state.add(this.state.type)
+  }
+
   render () {
     var rets = [
       <Row key = "menu">
@@ -102,6 +111,31 @@ export class Category extends Component {
         </Row>
       ))
       i ++
+    }
+    if (this.state.type !== "Search") {
+      rets.push((
+        <FirebaseContext.Consumer key = "add">
+          {
+            firebase => (
+              <UserContext.Consumer>
+                {
+                  user => {
+                    if (user && firebase.allowed(user.uid)) {
+                      return (
+                        <Row>
+                          <Col>
+                            <Image src = {require("../Assets/add-icon.png")} onClick = {this.add} />
+                          </Col>
+                        </Row>
+                      )
+                    }
+                  }
+                }
+              </UserContext.Consumer>
+            )
+          }
+        </FirebaseContext.Consumer>
+      ))
     }
     return (
       <Layout>
