@@ -78,7 +78,7 @@ export class Category extends Component {
   }
 
   add() {
-    this.state.add(this.state.type)
+    this.state.add(this.state.type + "Editor")
   }
 
   render () {

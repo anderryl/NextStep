@@ -10,6 +10,10 @@ import { Category } from "./PageTypes/Category"
 import FirebaseContext from "./Contexts/FirebaseContext"
 import UserContext from "./Contexts/UserContext"
 import Firebase from "./Firebase"
+import JobEditor from "./PageTypes/JobEditor"
+import ScholarshipEditor from "./PageTypes/ScholarshipEditor"
+import CollegeEditor from "./PageTypes/CollegeEditor"
+import ApprenticeshipEditor from "./PageTypes/ApprenticeshipEditor"
 
 export class App extends Component {
   constructor(props) {
@@ -18,9 +22,9 @@ export class App extends Component {
     this.category = this.category.bind(this)
     this.page = this.page.bind(this)
     this.home = this.home.bind(this)
-    this.load = this.load.bind(this)
-    this.update = this.update.bind(this)
-    this.load = this.load.bind(this)
+    this.updateDexie = this.updateDexie.bind(this)
+    this.loadDexie = this.loadDexie.bind(this)
+    this.refreshDexie = this.refreshDexie.bind(this)
     this.refresher = this.refresh.bind(this)
     this.add = this.add.bind(this)
 
@@ -38,10 +42,10 @@ export class App extends Component {
     var fire = new Firebase(this.refresher)
     window.addEventListener('online', this.update)
     if (navigator.onLine === true) {
-      this.update(fire)
+      this.updateDexie(fire)
     }
     else {
-      this.load(fire)
+      this.loadDexie(fire)
     }
   }
 
@@ -49,7 +53,11 @@ export class App extends Component {
     window.removeEventListener('online', this.update)
   }
 
-  async load(firebase) {
+  refreshDexie() {
+    this.loadDexie(this.state.firebase)
+  }
+
+  async loadDexie(firebase) {
     var info =  await db.listings.toArray()
     this.setState({
       contents: info,
@@ -57,7 +65,7 @@ export class App extends Component {
     })
   }
 
-  async update(firebase) {
+  async updateDexie(firebase) {
     var cont = await firebase.retreiveContents()
     db.transaction('rw', db.listings, async () => {
       db.listings.clear()
@@ -84,6 +92,7 @@ export class App extends Component {
     this.setState({
       user: user
     })
+
   }
 
   home() {
@@ -93,14 +102,26 @@ export class App extends Component {
     })
   }
 
-  category(type, query) {
-    this.setState({
-      location: "Category",
-      props: {
-        type: type,
-        query: query
-      }
-    })
+  async category(type, query, fragment) {
+    if (fragment) {
+      this.setState({
+        location: "Category",
+        contents: this.state.contents.concat([fragment]),
+        props: {
+          type: type,
+          query: query
+        }
+      })
+    }
+    else {
+      this.setState({
+        location: "Category",
+        props: {
+          type: type,
+          query: query
+        }
+      })
+    }
   }
 
   page(type, fragment) {
@@ -111,7 +132,12 @@ export class App extends Component {
   }
 
   add(type) {
-    alert("add " + type)
+    this.setState({
+      location: type,
+      props: {
+        contents: {}
+      }
+    })
   }
 
   render() {
@@ -138,6 +164,22 @@ export class App extends Component {
     else if (this.state.location === "Apprenticeships") {
       const props = this.state.props
       ret = <Apprenticeship title = {props.title} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} />
+    }
+    else if (this.state.location === "ScholarshipsEditor") {
+      const props = this.state.props
+      ret = <ScholarshipEditor title = {props.title} contents = {{}} page = {this.page} home = {this.home} category = {this.category} />
+    }
+    else if (this.state.location === "JobsEditor") {
+      const props = this.state.props
+      ret = <JobEditor title = {props.title} contents = {{}} page = {this.page} home = {this.home} category = {this.category} />
+    }
+    else if (this.state.location === "ApprenticeshipsEditor") {
+      const props = this.state.props
+      ret = <ApprenticeshipEditor title = {props.title} contents = {{}} page = {this.page} home = {this.home} category = {this.category} />
+    }
+    else if (this.state.location === "CollegeEditor") {
+      const props = this.state.props
+      ret = <CollegeEditor title = {props.title} contents = {{}} page = {this.page} home = {this.home} category = {this.category} />
     }
     return (
       <Fragment>

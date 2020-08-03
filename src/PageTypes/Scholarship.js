@@ -27,7 +27,7 @@ export class Scholarship extends Component {
   }
 
   scholarships() {
-    this.state.category("Scholarships", "")
+    this.state.category("Scholarships", "", null)
   }
 
   render() {

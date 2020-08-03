@@ -40,16 +40,16 @@ class Search extends Component {
 
   render() {
     return (
-          <Form onSubmit= {this.handleSubmit}>
-            <Form.Row>
-              <Col xs = "9">
-                <FormControl type="text" placeholder={this.state.default} className="mr-sm-2" value = {this.state.value} onChange = {this.handleChange} />
-              </Col>
-              <Col xs = "3">
-                <Button variant="outline-success" onClick = {this.handleClick}>Search</Button>
-              </Col>
-            </Form.Row>
-          </Form>
+      <Form onSubmit= {this.handleSubmit}>
+        <Form.Row>
+          <Col xs = "9">
+            <FormControl type="text" placeholder={this.state.default} className="mr-sm-2" value = {this.state.value} onChange = {this.handleChange} />
+          </Col>
+          <Col xs = "3">
+            <Button variant="outline-success" onClick = {this.handleClick}>Search</Button>
+          </Col>
+        </Form.Row>
+      </Form>
     )
   }
 }

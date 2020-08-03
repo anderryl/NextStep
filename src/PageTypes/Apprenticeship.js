@@ -26,7 +26,7 @@ export class Apprenticeship extends Component {
   }
 
   apprenticeships() {
-    this.state.category("Apprenticeships", "")
+    this.state.category("Apprenticeships", "", null)
   }
 
   render() {

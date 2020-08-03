@@ -24,7 +24,7 @@ export class College extends Component {
   }
 
   college() {
-    this.state.category("College", "")
+    this.state.category("College", "", null)
   }
 
   render() {

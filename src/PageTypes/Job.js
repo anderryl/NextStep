@@ -31,7 +31,7 @@ export class Job extends Component {
   }
 
   jobs() {
-    this.state.category("Jobs", "")
+    this.state.category("Jobs", "", null)
   }
 
   render() {
