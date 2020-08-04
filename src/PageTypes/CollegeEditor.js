@@ -4,10 +4,8 @@ import Col from 'react-bootstrap/Col'
 import { Layout } from "../Components/Layout"
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
 import FirebaseContext from "../Contexts/FirebaseContext"
 import Button from 'react-bootstrap/Button'
-import db from "../db";
 
 export default class CollegeEditor extends Component {
   constructor(props) {

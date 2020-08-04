@@ -23,7 +23,6 @@ export class App extends Component {
     this.page = this.page.bind(this)
     this.home = this.home.bind(this)
     this.updateDexie = this.updateDexie.bind(this)
-    this.loadDexie = this.loadDexie.bind(this)
     this.refreshDexie = this.refreshDexie.bind(this)
     this.refresher = this.refresh.bind(this)
     this.add = this.add.bind(this)
@@ -39,13 +38,15 @@ export class App extends Component {
   }
 
   async componentDidMount() {
+    const info = await db.listings.toArray()
     var fire = new Firebase(this.refresher)
+    this.setState({
+      contents: info,
+      firebase: fire
+    })
     window.addEventListener('online', this.update)
     if (navigator.onLine === true) {
       this.updateDexie(fire)
-    }
-    else {
-      this.loadDexie(fire)
     }
   }
 
@@ -57,14 +58,6 @@ export class App extends Component {
     this.loadDexie(this.state.firebase)
   }
 
-  async loadDexie(firebase) {
-    var info =  await db.listings.toArray()
-    this.setState({
-      contents: info,
-      firebase: firebase
-    })
-  }
-
   async updateDexie(firebase) {
     var cont = await firebase.retreiveContents()
     db.transaction('rw', db.listings, async () => {
@@ -72,8 +65,7 @@ export class App extends Component {
       db.listings.bulkAdd(cont)
     })
     this.setState({
-      contents: cont,
-      firebase: firebase
+      contents: cont
     })
   }
 
@@ -103,6 +95,7 @@ export class App extends Component {
   }
 
   async category(type, query, fragment) {
+
     if (fragment) {
       this.setState({
         location: "Category",
