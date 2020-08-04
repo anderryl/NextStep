@@ -129,64 +129,64 @@ export default class JobEditor extends Component {
         <Form>
           <Row>
             <Col>
-              <Form.Control size = "lg" type= "text" placeholder = "Title" onChange = {this.title} />
+              <Form.Control size = "lg" type= "text" defaultValue = {this.state.title} placeholder = "Title" onChange = {this.title} />
             </Col>
           </Row>
           <Row>
             <Col>
-              <Form.Control size = "sm" type= "text" placeholder = "Blurb" onChange = {this.blurb} />
+              <Form.Control size = "sm" type= "text" defaultValue = {this.state.blurb} placeholder = "Blurb" onChange = {this.blurb} />
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Label>Job:</Form.Label>
-              <Form.Control size = "sm" type = "text" placeholder = "" onChange = {this.work} />
+              <Form.Control size = "sm" type = "text" defaultValue = {this.state.work} placeholder = "" onChange = {this.work} />
             </Col>
             <Col>
               <Form.Label>Pay:</Form.Label>
-              <Form.Control size = "sm" type = "text" placeholder = "" onChange = {this.pay} />
+              <Form.Control size = "sm" type = "text" defaultValue = {this.state.pay} placeholder = "" onChange = {this.pay} />
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Label>Days:</Form.Label>
-              <Form.Control size = "sm" type = "text" onChange = {this.days} />
+              <Form.Control size = "sm" defaultValue = {this.state.days} type = "text" onChange = {this.days} />
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Label>Hours:</Form.Label>
-              <Form.Control size = "sm" type = "text" onChange = {this.hours} />
+              <Form.Control size = "sm" defaultValue = {this.state.hours} type = "text" onChange = {this.hours} />
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Label>Employer:</Form.Label>
-              <Form.Control as = "textarea" rows = "3" onChange = {this.employer} />
+              <Form.Control as = "textarea" defaultValue = {this.state.employer} rows = "3" onChange = {this.employer} />
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Label>Where:</Form.Label>
-              <Form.Control size = "sm" type = "text" onChange = {this.location} />
+              <Form.Control size = "sm" type = "text" defaultValue = {this.state.location} onChange = {this.location} />
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Label>Description:</Form.Label>
-              <Form.Control as = "textarea" rows = "3" onChange = {this.description} />
+              <Form.Control as = "textarea" rows = "3" defaultValue = {this.state.description} onChange = {this.description} />
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Label>Requirements:</Form.Label>
-              <Form.Control as = "textarea" rows = "3" onChange = {this.requirements} />
+              <Form.Control as = "textarea" rows = "3" defaultValue = {this.state.requirements} onChange = {this.requirements} />
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Label>Link:</Form.Label>
-              <Form.Control size = "sm" type = "text" placeholder = "" onChange = {this.link} />
+              <Form.Control size = "sm" type = "text" defaultValue = {this.state.link} placeholder = "" onChange = {this.link} />
             </Col>
           </Row>
           <Row>

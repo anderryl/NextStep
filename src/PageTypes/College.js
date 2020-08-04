@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Layout } from "../Components/Layout"
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
+import { OperationBar } from "../Components/OperationBar"
 
 export class College extends Component {
   constructor(props) {
@@ -13,10 +14,13 @@ export class College extends Component {
       link: props.contents.link,
       page: props.page,
       home: props.home,
-      category: props.category
+      category: props.category,
+      edit: props.edit
     }
     this.home = this.home.bind(this)
     this.college = this.college.bind(this)
+    this.delete = this.delete.bind(this)
+    this.edit = this.edit.bind(this)
   }
 
   home() {
@@ -25,6 +29,32 @@ export class College extends Component {
 
   college() {
     this.state.category("College", "", null)
+  }
+
+  delete(firebase) {
+    const content = {
+      title: this.state.title,
+      blurb: this.state.blurb,
+      type: "College",
+      contents: {
+        description: this.state.description,
+        link: this.state.link
+      }
+    }
+    firebase.deleteDocument(content)
+  }
+
+  edit() {
+    const content = {
+      title: this.state.title,
+      blurb: this.state.blurb,
+      type: "College",
+      contents: {
+        description: this.state.description,
+        link: this.state.link
+      }
+    }
+    this.state.edit("CollegeEditor", content)
   }
 
   render() {
@@ -59,6 +89,7 @@ export class College extends Component {
             <a href={"https://" + this.state.link}>{this.state.link}</a>
           </Col>
         </Row>
+        <OperationBar delete = {this.delete} category = {this.college} edit = {this.edit} />
       </Layout>
     )
   }

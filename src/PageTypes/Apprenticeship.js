@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Layout } from "../Components/Layout"
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
+import { OperationBar } from "../Components/OperationBar"
 
 export class Apprenticeship extends Component {
   constructor(props) {
@@ -15,10 +16,13 @@ export class Apprenticeship extends Component {
       timeframe: props.contents.timeframe,
       link: props.contents.link,
       home: props.home,
-      category: props.category
+      category: props.category,
+      edit: props.edit
     }
     this.home = this.home.bind(this)
     this.apprenticeships = this.apprenticeships.bind(this)
+    this.delete = this.delete.bind(this)
+    this.edit = this.edit.bind(this)
   }
 
   home() {
@@ -27,6 +31,38 @@ export class Apprenticeship extends Component {
 
   apprenticeships() {
     this.state.category("Apprenticeships", "", null)
+  }
+
+  delete(firebase) {
+    const content = {
+      title: this.state.title,
+      blurb: this.state.blurb,
+      type: "Apprenticeships",
+      contents: {
+        pay: this.state.pay,
+        work: this.state.work,
+        description: this.state.description,
+        timeframe: this.state.timeframe,
+        link: this.state.link
+      }
+    }
+    firebase.deleteDocument(content)
+  }
+
+  edit() {
+    const content = {
+      title: this.state.title,
+      blurb: this.state.blurb,
+      type: "Apprenticeships",
+      contents: {
+        pay: this.state.pay,
+        work: this.state.work,
+        description: this.state.description,
+        timeframe: this.state.timeframe,
+        link: this.state.link
+      }
+    }
+    this.state.edit("ApprenticeshipsEditor", content)
   }
 
   render() {
@@ -81,6 +117,7 @@ export class Apprenticeship extends Component {
             <a href={"https://" + this.state.link}>{this.state.link}</a>
           </Col>
         </Row>
+        <OperationBar delete = {this.delete} category = {this.apprenticeships} edit = {this.edit} />
       </Layout>
     )
   }

@@ -77,24 +77,24 @@ export default class CollegeEditor extends Component {
         <Form>
           <Row>
             <Col>
-              <Form.Control size = "lg" type= "text" placeholder = "Title" onChange = {this.title} />
+              <Form.Control size = "lg" type= "text" defaultValue = {this.state.title} placeholder = "Title" onChange = {this.title} />
             </Col>
           </Row>
           <Row>
             <Col>
-              <Form.Control size = "sm" type= "text" placeholder = "Blurb" onChange = {this.blurb} />
+              <Form.Control size = "sm" type= "text" defaultValue = {this.state.blurb} placeholder = "Blurb" onChange = {this.blurb} />
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Label>Description:</Form.Label>
-              <Form.Control as = "textarea" rows = "3" onChange = {this.description} />
+              <Form.Control as = "textarea" rows = "3" defaultValue = {this.state.description} onChange = {this.description} />
             </Col>
           </Row>
           <Row>
             <Col>
               <Form.Label>Link:</Form.Label>
-              <Form.Control size = "sm" type = "text" placeholder = "" onChange = {this.link} />
+              <Form.Control size = "sm" type = "text" defaultValue = {this.state.link} placeholder = "" onChange = {this.link} />
             </Col>
           </Row>
           <FirebaseContext.Consumer>

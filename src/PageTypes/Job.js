@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Layout } from "../Components/Layout"
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
+import { OperationBar } from "../Components/OperationBar"
 
 export class Job extends Component {
   constructor(props) {
@@ -20,10 +21,13 @@ export class Job extends Component {
       location: props.contents.location,
       page: props.page,
       home: props.home,
-      category: props.category
+      category: props.category,
+      edit: props.edit
     }
     this.home = this.home.bind(this)
     this.jobs = this.jobs.bind(this)
+    this.delete = this.delete.bind(this)
+    this.edit = this.edit.bind(this)
   }
 
   home() {
@@ -32,6 +36,38 @@ export class Job extends Component {
 
   jobs() {
     this.state.category("Jobs", "", null)
+  }
+
+  delete(firebase) {
+    const content = {
+      title: this.state.title,
+      blurb: this.state.blurb,
+      type: "Jobs",
+      contents: {
+        amount: this.state.amount,
+        due: this.state.due,
+        description: this.state.description,
+        requirements: this.state.requirements,
+        link: this.state.link
+      }
+    }
+    firebase.deleteDocument(content)
+  }
+
+  edit() {
+    const content = {
+      title: this.state.title,
+      blurb: this.state.blurb,
+      type: "Jobs",
+      contents: {
+        amount: this.state.amount,
+        due: this.state.due,
+        description: this.state.description,
+        requirements: this.state.requirements,
+        link: this.state.link
+      }
+    }
+    this.state.edit("JobsEditor", content)
   }
 
   render() {
@@ -98,6 +134,7 @@ export class Job extends Component {
             <a href={"https://" + this.state.link}>{this.state.link}</a>
           </Col>
         </Row>
+        <OperationBar delete = {this.delete} category = {this.jobs} edit = {this.edit} />
       </Layout>
     )
   }

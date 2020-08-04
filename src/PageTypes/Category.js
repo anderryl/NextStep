@@ -17,6 +17,7 @@ export class Category extends Component {
     if (props.type !== "Search") {
       var item
       for (item of props.contents) {
+        console.log(item)
         if (item.type === props.type) {
           processed.push(item)
         }

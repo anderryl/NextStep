@@ -3,6 +3,10 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Layout } from "../Components/Layout"
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
+import FirebaseContext from "../Contexts/FirebaseContext"
+import UserContext from "../Contexts/UserContext"
+import Image from "react-bootstrap/Image"
+import { OperationBar } from "../Components/OperationBar"
 
 export class Scholarship extends Component {
   constructor(props) {
@@ -16,10 +20,13 @@ export class Scholarship extends Component {
       link: props.contents.link,
       page: props.page,
       category: props.category,
-      home: props.home
+      home: props.home,
+      edit: props.edit
     }
     this.home = this.home.bind(this)
     this.scholarships = this.scholarships.bind(this)
+    this.delete = this.delete.bind(this)
+    this.edit = this.edit.bind(this)
   }
 
   home() {
@@ -28,6 +35,38 @@ export class Scholarship extends Component {
 
   scholarships() {
     this.state.category("Scholarships", "", null)
+  }
+
+  delete(firebase) {
+    const content = {
+      title: this.state.title,
+      blurb: this.state.blurb,
+      type: "Scholarships",
+      contents: {
+        amount: this.state.amount,
+        due: this.state.due,
+        description: this.state.description,
+        requirements: this.state.requirements,
+        link: this.state.link
+      }
+    }
+    firebase.deleteDocument(content)
+  }
+
+  edit() {
+    const content = {
+      title: this.state.title,
+      blurb: this.state.blurb,
+      type: "Scholarships",
+      contents: {
+        amount: this.state.amount,
+        due: this.state.due,
+        description: this.state.description,
+        requirements: this.state.requirements,
+        link: this.state.link
+      }
+    }
+    this.state.edit("ScholarshipsEditor", content)
   }
 
   render() {
@@ -78,6 +117,7 @@ export class Scholarship extends Component {
             <a href={"https://" + this.state.link}>{this.state.link}</a>
           </Col>
         </Row>
+        <OperationBar delete = {this.delete} category = {this.scholarships} edit = {this.edit} />
       </Layout>
     )
   }
