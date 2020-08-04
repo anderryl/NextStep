@@ -118,7 +118,7 @@ export default class JobEditor extends Component {
           <Col>
             <Breadcrumb>
               <Breadcrumb.Item onClick = {this.home}>Home</Breadcrumb.Item>
-              <Breadcrumb.Item onClick = {this.jobs}>
+              <Breadcrumb.Item onClick = {() => this.jobs(null)}>
                 Jobs
               </Breadcrumb.Item>
               <Breadcrumb.Item active>{this.state.title}</Breadcrumb.Item>

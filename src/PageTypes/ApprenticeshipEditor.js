@@ -90,7 +90,7 @@ export default class ApprenticeshipEditor extends Component {
           <Col>
             <Breadcrumb>
               <Breadcrumb.Item onClick = {this.home}>Home</Breadcrumb.Item>
-              <Breadcrumb.Item onClick = {this.apprenticeships}>
+              <Breadcrumb.Item onClick = {() => this.apprenticeships(null)}>
                 Apprenticeships
               </Breadcrumb.Item>
               <Breadcrumb.Item active>{this.state.title}</Breadcrumb.Item>

@@ -66,7 +66,7 @@ export default class CollegeEditor extends Component {
           <Col>
             <Breadcrumb>
               <Breadcrumb.Item onClick = {this.home}>Home</Breadcrumb.Item>
-              <Breadcrumb.Item onClick = {this.college}>
+              <Breadcrumb.Item onClick = {() => this.college(null)}>
                 College
               </Breadcrumb.Item>
               <Breadcrumb.Item active>{this.state.title}</Breadcrumb.Item>

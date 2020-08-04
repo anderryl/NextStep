@@ -117,6 +117,7 @@ export class Apprenticeship extends Component {
             <a href={"https://" + this.state.link}>{this.state.link}</a>
           </Col>
         </Row>
+        <hr width = {0}></hr>
         <OperationBar delete = {this.delete} category = {this.apprenticeships} edit = {this.edit} />
       </Layout>
     )

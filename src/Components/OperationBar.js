@@ -16,13 +16,13 @@ export const OperationBar = (props) => (
                 return (
                   <Row>
                     <Col>
-                      <Image src = {require("../Assets/delete-icon.png")} onClick = {() => {
+                      <Image src = {require("../Assets/delete-icon.png")} fluid rounded onClick = {() => {
                           props.delete(firebase)
                           props.category()
                         }} />
                     </Col>
                     <Col>
-                      <Image src = {require("../Assets/edit-icon.png")} onClick = {props.edit} />
+                      <Image src = {require("../Assets/edit-icon.png")} fluid rounded onClick = {props.edit} />
                     </Col>
                   </Row>
                 )

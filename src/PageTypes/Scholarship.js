@@ -117,6 +117,7 @@ export class Scholarship extends Component {
             <a href={"https://" + this.state.link}>{this.state.link}</a>
           </Col>
         </Row>
+        <hr width = {0}></hr>
         <OperationBar delete = {this.delete} category = {this.scholarships} edit = {this.edit} />
       </Layout>
     )

@@ -134,6 +134,7 @@ export class Job extends Component {
             <a href={"https://" + this.state.link}>{this.state.link}</a>
           </Col>
         </Row>
+        <hr width = {0}></hr>
         <OperationBar delete = {this.delete} category = {this.jobs} edit = {this.edit} />
       </Layout>
     )
