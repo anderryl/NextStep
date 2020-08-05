@@ -6,6 +6,7 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import Form from 'react-bootstrap/Form'
 import FirebaseContext from "../Contexts/FirebaseContext"
 import Button from 'react-bootstrap/Button'
+import { RandomId } from "../RandomId"
 
 export default class CollegeEditor extends Component {
   constructor(props) {
@@ -17,6 +18,8 @@ export default class CollegeEditor extends Component {
       link: props.contents.link ?? "",
       page: props.page,
       category: props.category,
+      uid: props.uid,
+      operation: props.operation,
       home: props.home
     }
     this.home = this.home.bind(this)
@@ -107,12 +110,18 @@ export default class CollegeEditor extends Component {
                         title: this.state.title,
                         blurb: this.state.blurb,
                         type: "College",
+                        uid: this.state.uid ?? RandomId(),
                         contents: {
                           description: this.state.description,
                           link: this.state.link
                         }
                       }
-                      firebase.setDocument(content)
+                      if (this.state.operation === "EDIT") {
+                        firebase.setDocument(content.uid, content)
+                      }
+                      else {
+                        firebase.setDocument(content.uid, content)
+                      }
                       this.college(content)
                   }}>Save</Button>
                   </Col>

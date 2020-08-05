@@ -32,6 +32,7 @@ export class Category extends Component {
       order: processed,
       page: props.page,
       home: props.home,
+      uid: props.uid,
       add: props.add
     }
     this.clicked = this.clicked.bind(this)

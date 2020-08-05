@@ -3,10 +3,8 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Layout } from "../Components/Layout"
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
-import FirebaseContext from "../Contexts/FirebaseContext"
-import UserContext from "../Contexts/UserContext"
-import Image from "react-bootstrap/Image"
 import { OperationBar } from "../Components/OperationBar"
+import { RandomId } from "../RandomId"
 
 export class Scholarship extends Component {
   constructor(props) {
@@ -21,6 +19,7 @@ export class Scholarship extends Component {
       page: props.page,
       category: props.category,
       home: props.home,
+      uid: props.uid,
       edit: props.edit
     }
     this.home = this.home.bind(this)
@@ -38,19 +37,7 @@ export class Scholarship extends Component {
   }
 
   delete(firebase) {
-    const content = {
-      title: this.state.title,
-      blurb: this.state.blurb,
-      type: "Scholarships",
-      contents: {
-        amount: this.state.amount,
-        due: this.state.due,
-        description: this.state.description,
-        requirements: this.state.requirements,
-        link: this.state.link
-      }
-    }
-    firebase.deleteDocument(content)
+    firebase.deleteDocument(this.state.uid)
   }
 
   edit() {
@@ -58,6 +45,7 @@ export class Scholarship extends Component {
       title: this.state.title,
       blurb: this.state.blurb,
       type: "Scholarships",
+      uid: this.state.uid,
       contents: {
         amount: this.state.amount,
         due: this.state.due,

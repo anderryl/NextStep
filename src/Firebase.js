@@ -83,12 +83,12 @@ class Firebase {
     return false
   }
 
-  async setDocument(fragment) {
-    this.firestore.collection('content').doc(fragment.title).set(fragment);
+  async setDocument(id, fragment) {
+    this.firestore.collection('content').doc(id).set(fragment);
   }
 
-  async deleteDocument(fragment) {
-    this.firestore.collection('content').doc(fragment.title).delete()
+  async deleteDocument(id) {
+    this.firestore.collection('content').doc(id).delete()
   }
 }
 

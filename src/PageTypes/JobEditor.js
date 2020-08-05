@@ -6,6 +6,7 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import Form from 'react-bootstrap/Form'
 import FirebaseContext from "../Contexts/FirebaseContext"
 import Button from 'react-bootstrap/Button'
+import { RandomId } from "../RandomId"
 
 export default class JobEditor extends Component {
   constructor(props) {
@@ -20,6 +21,8 @@ export default class JobEditor extends Component {
       page: props.page,
       category: props.category,
       home: props.home,
+      uid: props.uid,
+      operation: props.operation,
       blurb: props.blurb ?? ""
     }
     this.home = this.home.bind(this)
@@ -199,15 +202,25 @@ export default class JobEditor extends Component {
                       title: this.state.title,
                       blurb: this.state.blurb,
                       type: "Jobs",
+                      uid: this.state.uid ?? RandomId(),
                       contents: {
-                        amount: this.state.amount,
-                        due: this.state.due,
+                        work: this.state.work,
+                        pay: this.state.pay,
+                        days: this.state.days,
+                        hours: this.state.hours,
+                        employer: this.state.employer,
+                        location: this.state.location,
                         description: this.state.description,
                         requirements: this.state.requirements,
                         link: this.state.link
                       }
                     }
-                    firebase.setDocument(content)
+                    if (this.state.operation === "EDIT") {
+                      firebase.setDocument(content.uid, content)
+                    }
+                    else {
+                      firebase.setDocument(content.uid, content)
+                    }
                     this.jobs(content)
                 }}>Save</Button>
                 )

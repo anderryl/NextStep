@@ -15,6 +15,7 @@ export class College extends Component {
       page: props.page,
       home: props.home,
       category: props.category,
+      uid: props.uid,
       edit: props.edit
     }
     this.home = this.home.bind(this)
@@ -32,16 +33,7 @@ export class College extends Component {
   }
 
   delete(firebase) {
-    const content = {
-      title: this.state.title,
-      blurb: this.state.blurb,
-      type: "College",
-      contents: {
-        description: this.state.description,
-        link: this.state.link
-      }
-    }
-    firebase.deleteDocument(content)
+    firebase.deleteDocument(this.state.uid)
   }
 
   edit() {
@@ -49,6 +41,7 @@ export class College extends Component {
       title: this.state.title,
       blurb: this.state.blurb,
       type: "College",
+      uid: this.state.uid,
       contents: {
         description: this.state.description,
         link: this.state.link

@@ -17,6 +17,7 @@ export class Apprenticeship extends Component {
       link: props.contents.link,
       home: props.home,
       category: props.category,
+      uid: props.uid,
       edit: props.edit
     }
     this.home = this.home.bind(this)
@@ -34,19 +35,7 @@ export class Apprenticeship extends Component {
   }
 
   delete(firebase) {
-    const content = {
-      title: this.state.title,
-      blurb: this.state.blurb,
-      type: "Apprenticeships",
-      contents: {
-        pay: this.state.pay,
-        work: this.state.work,
-        description: this.state.description,
-        timeframe: this.state.timeframe,
-        link: this.state.link
-      }
-    }
-    firebase.deleteDocument(content)
+    firebase.deleteDocument(this.state.uid)
   }
 
   edit() {
@@ -54,6 +43,7 @@ export class Apprenticeship extends Component {
       title: this.state.title,
       blurb: this.state.blurb,
       type: "Apprenticeships",
+      uid: this.state.uid,
       contents: {
         pay: this.state.pay,
         work: this.state.work,

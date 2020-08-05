@@ -104,9 +104,11 @@ export class App extends Component {
     //Set navigation target to category with query as props
     //If there is an add-fragment, append new fragment to the contents list
     if (fragment) {
+      var file
+      var c = this.state.contents.filter(file => file.uid !== fragment.uid)
       this.setState({
         location: "Category",
-        contents: this.state.contents.concat([fragment]),
+        contents: c.concat([fragment]),
         props: {
           type: type,
           query: query
@@ -139,20 +141,22 @@ export class App extends Component {
       location: type,
       props: {
         contents: {}
-      }
+      },
+      info: "ADD"
     })
   }
 
   edit(type, fragment) {
     var file
     for (file of this.state.contents) {
-      if (file.title === fragment.title) {
+      if (file.uid === fragment.uid) {
         break
       }
     }
     this.setState({
       location: type,
-      props: file
+      props: file,
+      info: "EDIT"
     })
   }
 
@@ -164,39 +168,39 @@ export class App extends Component {
     }
     else if (this.state.location === "Category") {
       const props = this.state.props
-      ret = <Category query = {props.query} type = {props.type} page = {this.page} home = {this.home} add = {this.add} contents = {this.state.contents}/>
+      ret = <Category query = {props.query} type = {props.type} page = {this.page} home = {this.home} add = {this.add} contents = {this.state.contents} />
     }
     else if (this.state.location === "Scholarships") {
       const props = this.state.props
-      ret = <Scholarship title = {props.title} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category}  edit = {this.edit} />
+      ret = <Scholarship title = {props.title} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category}  edit = {this.edit} uid = {props.uid} />
     }
     else if (this.state.location === "Jobs") {
       const props = this.state.props
-      ret = <Job title = {props.title} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category}  edit = {this.edit} />
+      ret = <Job title = {props.title} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category}  edit = {this.edit} uid = {props.uid} />
     }
     else if (this.state.location === "College") {
       const props = this.state.props
-      ret = <College title = {props.title} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category}  edit = {this.edit} />
+      ret = <College title = {props.title} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category}  edit = {this.edit} uid = {props.uid} />
     }
     else if (this.state.location === "Apprenticeships") {
       const props = this.state.props
-      ret = <Apprenticeship title = {props.title} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category}  edit = {this.edit} />
+      ret = <Apprenticeship title = {props.title} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category}  edit = {this.edit} uid = {props.uid} />
     }
     else if (this.state.location === "ScholarshipsEditor") {
       const props = this.state.props
-      ret = <ScholarshipEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} />
+      ret = <ScholarshipEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} operation = {this.state.info} />
     }
     else if (this.state.location === "JobsEditor") {
       const props = this.state.props
-      ret = <JobEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} />
+      ret = <JobEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} operation = {this.state.info} />
     }
     else if (this.state.location === "ApprenticeshipsEditor") {
       const props = this.state.props
-      ret = <ApprenticeshipEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} />
+      ret = <ApprenticeshipEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} operation = {this.state.info} />
     }
     else if (this.state.location === "CollegeEditor") {
       const props = this.state.props
-      ret = <CollegeEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} />
+      ret = <CollegeEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} operation = {this.state.info} />
     }
     //Surround the render with context values
     return (

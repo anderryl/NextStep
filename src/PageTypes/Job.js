@@ -22,6 +22,7 @@ export class Job extends Component {
       page: props.page,
       home: props.home,
       category: props.category,
+      uid: props.uid,
       edit: props.edit
     }
     this.home = this.home.bind(this)
@@ -39,19 +40,7 @@ export class Job extends Component {
   }
 
   delete(firebase) {
-    const content = {
-      title: this.state.title,
-      blurb: this.state.blurb,
-      type: "Jobs",
-      contents: {
-        amount: this.state.amount,
-        due: this.state.due,
-        description: this.state.description,
-        requirements: this.state.requirements,
-        link: this.state.link
-      }
-    }
-    firebase.deleteDocument(content)
+    firebase.deleteDocument(this.state.uid)
   }
 
   edit() {
@@ -59,9 +48,14 @@ export class Job extends Component {
       title: this.state.title,
       blurb: this.state.blurb,
       type: "Jobs",
+      uid: this.state.uid,
       contents: {
-        amount: this.state.amount,
-        due: this.state.due,
+        work: this.state.work,
+        pay: this.state.pay,
+        days: this.state.days,
+        hours: this.state.hours,
+        employer: this.state.employer,
+        location: this.state.location,
         description: this.state.description,
         requirements: this.state.requirements,
         link: this.state.link
