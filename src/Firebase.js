@@ -70,7 +70,7 @@ class Firebase {
     return ret
   }
 
-  async allowed(uid) {
+  allowed(uid) {
     const allow = [
       "71V8Nwja2AeKWTPF5lBNI054vbC2"
     ]
