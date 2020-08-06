@@ -23,6 +23,7 @@ class Firebase {
     this.user = null
     this.token = null
     this.signIn = this.signIn.bind(this)
+    this.signOut = this.signOut.bind(this)
     this.changed = this.changed.bind(this)
     this.callback = callback
     this.contents = undefined
@@ -45,6 +46,7 @@ class Firebase {
       }
       // The signed-in user info.
       this.user = result.user;
+      this.callback(result.user)
     }).catch(function(error) {
       alert(error.message)
     })

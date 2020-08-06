@@ -5,14 +5,13 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import Search from "../Components/Search"
 import { Layout } from "../Components/Layout"
 import Image from 'react-bootstrap/Image'
-import FirebaseContext from "../Contexts/FirebaseContext"
-import UserContext from "../Contexts/UserContext"
 
 export class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      category: props.category
+      category: props.category,
+      settings: props.settings
     }
     this.college = this.college.bind(this)
     this.scholarship = this.scholarship.bind(this)
@@ -77,34 +76,14 @@ export class Home extends Component {
           </Col>
         </Row>
         <hr width = {0}></hr>
-        <FirebaseContext.Consumer>
-          {firebase => (
-          <UserContext.Consumer>
-            {
-              user => {
-                if (user) {
-                  return (<p>{"signed in as: " + user.displayName}</p>)
-                }
-                else if (user === undefined) {
-                  return
-                }
-                else {
-                  return (
-                    <Row>
-                      <Col>
-                        <Image src = {require("../Assets/signin.png")} onClick = { () => {
-                            firebase.signIn()
-                          }
-                        } fluid rounded />
-                      </Col>
-                    </Row>
-                  )
-                }
-              }
-            }
-          </UserContext.Consumer>
-        )}
-        </FirebaseContext.Consumer>
+        <Row>
+          <Col>
+            <Image src = {require("../Assets/settings-icon.png")} onClick = {this.state.settings} fluid rounded />
+          </Col>
+          <Col>
+            Favorites?
+          </Col>
+        </Row>
       </Layout>
     )
   }

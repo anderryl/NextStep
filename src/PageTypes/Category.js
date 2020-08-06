@@ -7,7 +7,6 @@ import { Layout } from "../Components/Layout"
 import { HeaderWrapper } from "../Components/Wrappers"
 import Fuse from "fuse.js"
 import FirebaseContext from "../Contexts/FirebaseContext"
-import UserContext from "../Contexts/UserContext"
 import Image from 'react-bootstrap/Image'
 
 export class Category extends Component {
@@ -117,23 +116,21 @@ export class Category extends Component {
       rets.push((
         <FirebaseContext.Consumer key = "add">
           {
-            firebase => (
-              <UserContext.Consumer>
-                {
-                  user => {
-                    if (user && firebase.allowed(user.uid)) {
-                      return (
-                        <Row>
-                          <Col>
-                            <Image src = {require("../Assets/add-icon.png")} onClick = {this.add} />
-                          </Col>
-                        </Row>
-                      )
-                    }
-                  }
-                }
-              </UserContext.Consumer>
-            )
+            firebase => {
+              if (!firebase) {
+                return
+              }
+              const user = firebase.currentUser()
+              if (user && firebase.allowed(user.uid)) {
+                return (
+                  <Row>
+                    <Col>
+                      <Image src = {require("../Assets/add-icon.png")} onClick = {this.add} />
+                    </Col>
+                  </Row>
+                )
+              }
+            }
           }
         </FirebaseContext.Consumer>
       ))

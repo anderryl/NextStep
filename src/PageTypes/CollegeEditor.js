@@ -19,7 +19,6 @@ export default class CollegeEditor extends Component {
       page: props.page,
       category: props.category,
       uid: props.uid,
-      operation: props.operation,
       home: props.home
     }
     this.home = this.home.bind(this)
@@ -116,12 +115,7 @@ export default class CollegeEditor extends Component {
                           link: this.state.link
                         }
                       }
-                      if (this.state.operation === "EDIT") {
-                        firebase.setDocument(content.uid, content)
-                      }
-                      else {
-                        firebase.setDocument(content.uid, content)
-                      }
+                      firebase.setDocument(content.uid, content)
                       this.college(content)
                   }}>Save</Button>
                   </Col>

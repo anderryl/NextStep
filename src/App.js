@@ -8,12 +8,12 @@ import { College } from "./PageTypes/College";
 import { Apprenticeship } from "./PageTypes/Apprenticeship";
 import { Category } from "./PageTypes/Category"
 import FirebaseContext from "./Contexts/FirebaseContext"
-import UserContext from "./Contexts/UserContext"
 import Firebase from "./Firebase"
 import JobEditor from "./PageTypes/JobEditor"
 import ScholarshipEditor from "./PageTypes/ScholarshipEditor"
 import CollegeEditor from "./PageTypes/CollegeEditor"
 import ApprenticeshipEditor from "./PageTypes/ApprenticeshipEditor"
+import { Settings } from "./PageTypes/Settings"
 
 export class App extends Component {
   constructor(props) {
@@ -28,6 +28,7 @@ export class App extends Component {
     this.refresher = this.refresh.bind(this)
     this.add = this.add.bind(this)
     this.edit = this.edit.bind(this)
+    this.settings = this.settings.bind(this)
 
     //Set preliminary state
     this.state = {
@@ -78,18 +79,7 @@ export class App extends Component {
   }
 
   refresh(user) {
-    //If user is defined, insert it and its id into state
-    if (user) {
-      this.setState({
-        user: user,
-        token: user.getIdToken()
-      })
-    }
-    //If not, insert the undefined value into state
-    this.setState({
-      user: user
-    })
-
+    this.forceUpdate()
   }
 
   home() {
@@ -135,6 +125,13 @@ export class App extends Component {
     })
   }
 
+  settings() {
+    this.setState({
+      location: "Settings",
+      props: {}
+    })
+  }
+
   add(type) {
     //Navigate to a new editor page of a specific type
     this.setState({
@@ -164,7 +161,10 @@ export class App extends Component {
     //Render a specific page based on navigation target
     var ret
     if (this.state.location === "Home") {
-      ret = <Home category = {this.category}/>
+      ret = <Home category = {this.category} settings = {this.settings} />
+    }
+    else if (this.state.location === "Settings") {
+      ret = <Settings home = {this.home} />
     }
     else if (this.state.location === "Category") {
       const props = this.state.props
@@ -188,27 +188,25 @@ export class App extends Component {
     }
     else if (this.state.location === "ScholarshipsEditor") {
       const props = this.state.props
-      ret = <ScholarshipEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} operation = {this.state.info} />
+      ret = <ScholarshipEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} />
     }
     else if (this.state.location === "JobsEditor") {
       const props = this.state.props
-      ret = <JobEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} operation = {this.state.info} />
+      ret = <JobEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} operation />
     }
     else if (this.state.location === "ApprenticeshipsEditor") {
       const props = this.state.props
-      ret = <ApprenticeshipEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} operation = {this.state.info} />
+      ret = <ApprenticeshipEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} />
     }
     else if (this.state.location === "CollegeEditor") {
       const props = this.state.props
-      ret = <CollegeEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} operation = {this.state.info} />
+      ret = <CollegeEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} />
     }
     //Surround the render with context values
     return (
       <Fragment>
         <FirebaseContext.Provider value = {this.state.firebase}>
-          <UserContext.Provider value = {this.state.user}>
-            { ret }
-          </UserContext.Provider>
+          { ret }
         </FirebaseContext.Provider>
       </Fragment>
     );

@@ -22,7 +22,6 @@ export default class JobEditor extends Component {
       category: props.category,
       home: props.home,
       uid: props.uid,
-      operation: props.operation,
       blurb: props.blurb ?? ""
     }
     this.home = this.home.bind(this)
@@ -215,12 +214,7 @@ export default class JobEditor extends Component {
                         link: this.state.link
                       }
                     }
-                    if (this.state.operation === "EDIT") {
-                      firebase.setDocument(content.uid, content)
-                    }
-                    else {
-                      firebase.setDocument(content.uid, content)
-                    }
+                    firebase.setDocument(content.uid, content)
                     this.jobs(content)
                 }}>Save</Button>
                 )
