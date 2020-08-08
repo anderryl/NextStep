@@ -14,6 +14,7 @@ import ScholarshipEditor from "./PageTypes/ScholarshipEditor"
 import CollegeEditor from "./PageTypes/CollegeEditor"
 import ApprenticeshipEditor from "./PageTypes/ApprenticeshipEditor"
 import { Settings } from "./PageTypes/Settings"
+import { forceUpdate } from "./ForceUpdate"
 
 export class App extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ export class App extends Component {
     this.add = this.add.bind(this)
     this.edit = this.edit.bind(this)
     this.settings = this.settings.bind(this)
+    this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
 
     //Set preliminary state
     this.state = {
@@ -57,11 +59,55 @@ export class App extends Component {
     if (navigator.onLine === true) {
       this.updateDexie(fire)
     }
+    this.addOpenListener()
   }
 
   componentWillUnmount() {
     //Remove listener before app closes
     window.removeEventListener('online', () => this.updateDexie(this.state.firebase))
+    this.removeOpenListener()
+  }
+
+  addOpenListener() {
+    var visibilityChange;
+    if (typeof document.hidden !== undefined) {
+      visibilityChange = "visibilitychange";
+    }
+    else if (typeof document.mozHidden !== undefined) {
+      visibilityChange = "mozvisibilitychange";
+    }
+    else if (typeof document.msHidden !== undefined) {
+      visibilityChange = "msvisibilitychange";
+    }
+    else if (typeof document.webkitHidden !== undefined) {
+      visibilityChange = "webkitvisibilitychange";
+    }
+
+    window.addEventListener(visibilityChange, this.handleVisibilityChange, false);
+  }
+
+  removeOpenListener() {
+    var visibilityChange;
+    if (typeof document.hidden !== undefined) {
+      visibilityChange = "visibilitychange";
+    }
+    else if (typeof document.mozHidden !== undefined) {
+      visibilityChange = "mozvisibilitychange";
+    }
+    else if (typeof document.msHidden !== undefined) {
+      visibilityChange = "msvisibilitychange";
+    }
+    else if (typeof document.webkitHidden !== undefined) {
+      visibilityChange = "webkitvisibilitychange";
+    }
+
+    window.removeEventListener(visibilityChange, this.handleVisibilityChange, false);
+  }
+
+  handleVisibilityChange() {
+    if (document.visibilityState === "visible") {
+      forceUpdate()
+    }
   }
 
   async updateDexie(firebase) {
@@ -79,7 +125,7 @@ export class App extends Component {
   }
 
   refresh(user) {
-    this.forceUpdate()
+    forceUpdate()
   }
 
   home() {
