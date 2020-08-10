@@ -37,9 +37,7 @@ export class App extends Component {
       location: "Home",
       contents: {},
       props: {},
-      firebase: null,
-      user: undefined,
-      token: undefined
+      firebase: null
     }
   }
 
@@ -111,7 +109,6 @@ export class App extends Component {
   }
 
   async updateDexie(firebase) {
-    //Retreive listing contents from firestore
     var cont = await firebase.retreiveContents()
     //Write those contents to the local dexie database
     db.transaction('rw', db.listings, async () => {
@@ -140,7 +137,6 @@ export class App extends Component {
     //Set navigation target to category with query as props
     //If there is an add-fragment, append new fragment to the contents list
     if (fragment) {
-      var file
       var c = this.state.contents.filter(file => file.uid !== fragment.uid)
       this.setState({
         location: "Category",

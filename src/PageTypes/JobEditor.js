@@ -13,8 +13,12 @@ export default class JobEditor extends Component {
     super(props)
     this.state = {
       title: props.title ?? "",
-      amount: props.contents.amount ?? "",
-      due: props.contents.due ?? "",
+      pay: props.contents.pay ?? "",
+      work: props.contents.work ?? "",
+      days: props.contents.days ?? "",
+      hours: props.contents.hours ?? "",
+      employer: props.contents.employer ?? "",
+      location: props.contents.location ?? "",
       description: props.contents.description ?? "",
       requirements: props.contents.requirements ?? "",
       link: props.contents.link ?? "",

@@ -4,7 +4,6 @@ import Col from 'react-bootstrap/Col'
 import { Layout } from "../Components/Layout"
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import { OperationBar } from "../Components/OperationBar"
-import { RandomId } from "../RandomId"
 
 export class Scholarship extends Component {
   constructor(props) {
