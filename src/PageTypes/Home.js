@@ -11,7 +11,8 @@ export class Home extends Component {
     super(props)
     this.state = {
       category: props.category,
-      settings: props.settings
+      settings: props.settings,
+      favorites: props.favorites
     }
     this.college = this.college.bind(this)
     this.scholarship = this.scholarship.bind(this)
@@ -81,7 +82,7 @@ export class Home extends Component {
             <Image src = {require("../Assets/settings-icon.png")} onClick = {this.state.settings} fluid rounded />
           </Col>
           <Col>
-            Favorites?
+            <Image src = {require("../Assets/favorites-icon.png")} onClick = {this.state.favorites} fluid rounded />
           </Col>
         </Row>
       </Layout>

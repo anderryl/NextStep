@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
+import Collapse from 'react-bootstrap/Collapse'
 
 class OperationBar extends Component {
   constructor(props) {
@@ -39,16 +40,18 @@ class OperationBar extends Component {
             if (this.state.allowed) {
               if (this.state.confirmation) {
                 return (
-                  <Alert variant="danger" onClose={() => { this.setState({confirmation: false}) }} dismissible>
-                    <Alert.Heading>Are you sure?</Alert.Heading>
-                    <p>
-                      By clicking the button below, you irreversibly delete this entry.
-                    </p>
-                    <Button variant="danger" onClick = {() => {
-                        this.state.delete(firebase)
-                        this.state.category()
-                      }} block>Delete</Button>
-                  </Alert>
+                  <Collapse in = {true}>
+                    <Alert variant="danger" onClose={() => { this.setState({confirmation: false}) }} dismissible>
+                      <Alert.Heading>Are you sure?</Alert.Heading>
+                      <p>
+                        By clicking the button below, you irreversibly delete this entry.
+                      </p>
+                      <Button variant="danger" onClick = {() => {
+                          this.state.delete(firebase)
+                          this.state.category()
+                        }} block>Delete</Button>
+                    </Alert>
+                  </Collapse>
                 )
               }
               return (

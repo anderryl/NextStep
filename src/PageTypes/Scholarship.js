@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col'
 import { Layout } from "../Components/Layout"
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import OperationBar from "../Components/OperationBar"
+import Favicon from "../Components/Favicon"
 
 export class Scholarship extends Component {
   constructor(props) {
@@ -74,6 +75,9 @@ export class Scholarship extends Component {
         <Row>
           <Col>
             <h1>{this.state.title}</h1>
+          </Col>
+          <Col xs = {2}>
+            <Favicon uid = {this.state.uid} />
           </Col>
         </Row>
         <Row>

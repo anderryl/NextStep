@@ -55,7 +55,7 @@ export class Category extends Component {
       },
       {
         name: "blurb",
-        weight: 2
+        weight: 1
       }]
     })
     const raw = fuse.search(query)

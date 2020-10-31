@@ -15,6 +15,8 @@ import CollegeEditor from "./PageTypes/CollegeEditor"
 import ApprenticeshipEditor from "./PageTypes/ApprenticeshipEditor"
 import { Settings } from "./PageTypes/Settings"
 import { forceUpdate } from "./ForceUpdate"
+import DexieContext from "./Contexts/DexieContext"
+import Favorites from "./PageTypes/Favorites"
 
 export class App extends Component {
   constructor(props) {
@@ -30,6 +32,7 @@ export class App extends Component {
     this.add = this.add.bind(this)
     this.edit = this.edit.bind(this)
     this.settings = this.settings.bind(this)
+    this.favorites = this.favorites.bind(this)
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
 
     //Set preliminary state
@@ -185,6 +188,12 @@ export class App extends Component {
     })
   }
 
+  favorites() {
+    this.setState({
+      location: "Favorites",
+    })
+  }
+
   edit(type, fragment) {
     var file
     for (file of this.state.contents) {
@@ -203,7 +212,7 @@ export class App extends Component {
     //Render a specific page based on navigation target
     var ret
     if (this.state.location === "Home") {
-      ret = <Home category = {this.category} settings = {this.settings} />
+      ret = <Home category = {this.category} settings = {this.settings} favorites = {this.favorites} />
     }
     else if (this.state.location === "Settings") {
       ret = <Settings home = {this.home} />
@@ -211,6 +220,10 @@ export class App extends Component {
     else if (this.state.location === "Category") {
       const props = this.state.props
       ret = <Category query = {props.query} type = {props.type} page = {this.page} home = {this.home} add = {this.add} contents = {this.state.contents} />
+    }
+    else if (this.state.location === "Favorites") {
+      const props = this.state.props
+      ret = <Favorites page = {this.page} home = {this.home} contents = {this.state.contents} />
     }
     else if (this.state.location === "Scholarships") {
       const props = this.state.props
@@ -244,11 +257,14 @@ export class App extends Component {
       const props = this.state.props
       ret = <CollegeEditor title = {props.title} blurb = {props.blurb} contents = {props.contents} page = {this.page} home = {this.home} category = {this.category} uid = {props.uid} />
     }
+
     //Surround the render with context values
     return (
       <Fragment>
         <FirebaseContext.Provider value = {this.state.firebase}>
-          { ret }
+          <DexieContext.Provider value = {db}>
+            { ret }
+          </DexieContext.Provider>
         </FirebaseContext.Provider>
       </Fragment>
     );
