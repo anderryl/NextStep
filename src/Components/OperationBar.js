@@ -3,6 +3,8 @@ import FirebaseContext from "../Contexts/FirebaseContext"
 import Image from "react-bootstrap/Image"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 
 class OperationBar extends Component {
   constructor(props) {
@@ -11,7 +13,8 @@ class OperationBar extends Component {
       edit: props.edit,
       delete: props.delete,
       category: props.category,
-      allowed: undefined
+      allowed: undefined,
+      confirmation: false
     }
   }
 
@@ -34,12 +37,25 @@ class OperationBar extends Component {
             }
 
             if (this.state.allowed) {
+              if (this.state.confirmation) {
+                return (
+                  <Alert variant="danger" onClose={() => { this.setState({confirmation: false}) }} dismissible>
+                    <Alert.Heading>Are you sure?</Alert.Heading>
+                    <p>
+                      By clicking the button below, you irreversibly delete this entry.
+                    </p>
+                    <Button variant="danger" onClick = {() => {
+                        this.state.delete(firebase)
+                        this.state.category()
+                      }} block>Delete</Button>
+                  </Alert>
+                )
+              }
               return (
                 <Row>
                   <Col>
                     <Image src = {require("../Assets/delete-icon.png")} fluid rounded onClick = {() => {
-                        this.state.delete(firebase)
-                        this.state.category()
+                        this.setState({confirmation: true})
                       }} />
                   </Col>
                   <Col>
