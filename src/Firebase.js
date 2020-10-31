@@ -25,13 +25,17 @@ class Firebase {
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
     this.changed = this.changed.bind(this)
+    this.allowedUser = this.allowedUser.bind(this)
     this.callback = callback
     this.contents = undefined
+    this.allowed = undefined
 
     app.auth().onAuthStateChanged(user => this.changed(user))
   }
 
   changed(user) {
+    this.user = user
+    console.log(user)
     this.callback(user)
   }
 
@@ -40,13 +44,12 @@ class Firebase {
   signIn() {
     app.auth().getRedirectResult().then(result => {
       if (result.credential) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
         this.token = result.credential.accessToken;
-        // ...
       }
-      // The signed-in user info.
+
+      console.log(result.user);
       this.user = result.user;
-      this.callback(result.user)
+      this.callback(result.user);
     }).catch(function(error) {
       alert(error.message)
     })
@@ -72,13 +75,22 @@ class Firebase {
     return ret
   }
 
-  allowed(uid) {
-    const allow = [
-      "71V8Nwja2AeKWTPF5lBNI054vbC2"
-    ]
+  async allowedUser(uid) {
+    if (this.allowed) {
+      var perm
+      for (perm of this.allowed) {
+        if (uid === perm.uid) {
+          return true
+        }
+      }
+      return false
+    }
+    const snapshot = await this.firestore.collection('allowed-users').get()
+    const list = snapshot.docs.map(doc => doc.data());
+    this.allowed = list
     var perm
-    for (perm of allow) {
-      if (uid === perm) {
+    for (perm of list) {
+      if (uid === perm.uid) {
         return true
       }
     }

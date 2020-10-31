@@ -32,7 +32,8 @@ export class Category extends Component {
       page: props.page,
       home: props.home,
       uid: props.uid,
-      add: props.add
+      add: props.add,
+      allowed: undefined
     }
     this.clicked = this.clicked.bind(this)
     this.home = this.home.bind(this)
@@ -121,7 +122,16 @@ export class Category extends Component {
                 return
               }
               const user = firebase.currentUser()
-              if (user && firebase.allowed(user.uid)) {
+              if (!user) {
+                return
+              }
+
+              if (this.state.allowed === undefined) {
+                firebase.allowedUser(user.uid).then(bool => {
+                  this.setState({allowed: bool})
+                })
+              }
+              if (this.state.allowed) {
                 return (
                   <Row>
                     <Col>

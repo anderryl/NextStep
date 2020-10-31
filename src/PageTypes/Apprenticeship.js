@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Layout } from "../Components/Layout"
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
-import { OperationBar } from "../Components/OperationBar"
+import OperationBar from "../Components/OperationBar"
 
 export class Apprenticeship extends Component {
   constructor(props) {
