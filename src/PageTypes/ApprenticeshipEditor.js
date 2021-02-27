@@ -24,68 +24,59 @@ export default class ApprenticeshipEditor extends Component {
       uid: props.uid,
       home: props.home
     }
-    this.home = this.home.bind(this)
-    this.apprenticeships = this.apprenticeships.bind(this)
-    this.title = this.title.bind(this)
-    this.pay = this.pay.bind(this)
-    this.work = this.work.bind(this)
-    this.description = this.description.bind(this)
-    this.timeframe = this.timeframe.bind(this)
-    this.link = this.link.bind(this)
-    this.blurb = this.blurb.bind(this)
   }
 
-  home() {
+  home = () => {
     this.state.home()
   }
 
-  apprenticeships(content) {
+  apprenticeships = (content) => {
     this.state.category("Apprenticeships", "", content)
   }
 
-  title(event) {
+  title = (event) => {
     this.setState({
       title: event.target.value
     })
   }
 
-  blurb(event) {
+  blurb = (event) => {
     this.setState({
       blurb: event.target.value
     })
   }
 
-  pay(event) {
+  pay = (event) => {
     this.setState({
       pay: event.target.value
     })
   }
 
-  work(event) {
+  work = (event) => {
     this.setState({
       work: event.target.value
     })
   }
 
-  description(event) {
+  description = (event) => {
     this.setState({
       description: event.target.value
     })
   }
 
-  timeframe(event) {
+  timeframe = (event) => {
     this.setState({
       timeframe: event.target.value
     })
   }
 
-  link(event) {
+  link = (event) => {
     this.setState({
       link: event.target.value
     })
   }
 
-  render() {
+  render = () => {
     return (
       <Layout>
         <Row>

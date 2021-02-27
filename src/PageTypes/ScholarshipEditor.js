@@ -24,68 +24,59 @@ export default class ScholarshipEditor extends Component {
       uid: props.uid,
       home: props.home
     }
-    this.home = this.home.bind(this)
-    this.scholarships = this.scholarships.bind(this)
-    this.title = this.title.bind(this)
-    this.amount = this.amount.bind(this)
-    this.due = this.due.bind(this)
-    this.description = this.description.bind(this)
-    this.requirements = this.requirements.bind(this)
-    this.link = this.link.bind(this)
-    this.blurb = this.blurb.bind(this)
   }
 
-  home() {
+  home = () => {
     this.state.home()
   }
 
-  scholarships(content) {
+  scholarships = (content) => {
     this.state.category("Scholarships", "", content)
   }
 
-  title(event) {
+  title = (event) => {
     this.setState({
       title: event.target.value
     })
   }
 
-  blurb(event) {
+  blurb = (event) => {
     this.setState({
       blurb: event.target.value
     })
   }
 
-  amount(event) {
+  amount = (event) => {
     this.setState({
       amount: event.target.value
     })
   }
 
-  due(event) {
+  due = (event) => {
     this.setState({
       due: event.target.value
     })
   }
 
-  description(event) {
+  description = (event) => {
     this.setState({
       description: event.target.value
     })
   }
 
-  requirements(event) {
+  requirements = (event) => {
     this.setState({
       requirements: event.target.value
     })
   }
 
-  link(event) {
+  link = (event) => {
     this.setState({
       link: event.target.value
     })
   }
 
-  render() {
+  render = () => {
     return (
       <Layout>
         <Row>

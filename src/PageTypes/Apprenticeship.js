@@ -21,25 +21,21 @@ export class Apprenticeship extends Component {
       uid: props.uid,
       edit: props.edit
     }
-    this.home = this.home.bind(this)
-    this.apprenticeships = this.apprenticeships.bind(this)
-    this.delete = this.delete.bind(this)
-    this.edit = this.edit.bind(this)
   }
 
-  home() {
+  home = () => {
     this.state.home()
   }
 
-  apprenticeships() {
+  apprenticeships = () => {
     this.state.category("Apprenticeships", "", null)
   }
 
-  delete(firebase) {
+  delete = (firebase) => {
     firebase.deleteDocument(this.state.uid)
   }
 
-  edit() {
+  edit = () => {
     const content = {
       title: this.state.title,
       blurb: this.state.blurb,
@@ -56,7 +52,7 @@ export class Apprenticeship extends Component {
     this.state.edit("ApprenticeshipsEditor", content)
   }
 
-  render() {
+  render = () => {
     return (
       <Layout>
         <Row>

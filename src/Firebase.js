@@ -22,10 +22,6 @@ class Firebase {
     this.firestore = app.firestore()
     this.user = null
     this.token = null
-    this.signIn = this.signIn.bind(this)
-    this.signOut = this.signOut.bind(this)
-    this.changed = this.changed.bind(this)
-    this.allowedUser = this.allowedUser.bind(this)
     this.callback = callback
     this.contents = undefined
     this.allowed = undefined
@@ -33,7 +29,7 @@ class Firebase {
     app.auth().onAuthStateChanged(user => this.changed(user))
   }
 
-  changed(user) {
+  changed = (user) => {
     this.user = user
     console.log(user)
     this.callback(user)
@@ -41,7 +37,7 @@ class Firebase {
 
   // *** Auth API ***
 
-  signIn() {
+  signIn = () => {
     app.auth().getRedirectResult().then(result => {
       if (result.credential) {
         this.token = result.credential.accessToken;
@@ -58,24 +54,24 @@ class Firebase {
     this.auth.signInWithRedirect(provider)
   }
 
-  signOut() {
+  signOut = () => {
     this.auth.signOut()
   }
 
-  currentUser() {
+  currentUser = () => {
     if (this.user) {
       return this.user
     }
     return this.auth.currentUser
   }
 
-  async retreiveContents() {
+  retreiveContents = async () => {
     const snapshot = await this.firestore.collection('content').get()
     const ret = snapshot.docs.map(doc => doc.data());
     return ret
   }
 
-  async allowedUser(uid) {
+  allowedUser = async (uid) => {
     if (this.allowed) {
       var perm
       for (perm of this.allowed) {
@@ -86,8 +82,9 @@ class Firebase {
       return false
     }
     const snapshot = await this.firestore.collection('allowed-users').get()
-    const list = snapshot.docs.map(doc => doc.data());
+    const list = snapshot.docs.map(doc => doc.data())
     this.allowed = list
+    console.log(list)
     var perm
     for (perm of list) {
       if (uid === perm.uid) {
@@ -97,11 +94,11 @@ class Firebase {
     return false
   }
 
-  async setDocument(id, fragment) {
+  setDocument = async (id, fragment) => {
     this.firestore.collection('content').doc(id).set(fragment);
   }
 
-  async deleteDocument(id) {
+  deleteDocument = async (id) => {
     this.firestore.collection('content').doc(id).delete()
   }
 }

@@ -19,25 +19,21 @@ export class College extends Component {
       uid: props.uid,
       edit: props.edit
     }
-    this.home = this.home.bind(this)
-    this.college = this.college.bind(this)
-    this.delete = this.delete.bind(this)
-    this.edit = this.edit.bind(this)
   }
 
-  home() {
+  home = () => {
     this.state.home()
   }
 
-  college() {
+  college = () => {
     this.state.category("College", "", null)
   }
 
-  delete(firebase) {
+  delete = (firebase) => {
     firebase.deleteDocument(this.state.uid)
   }
 
-  edit() {
+  edit = () => {
     const content = {
       title: this.state.title,
       blurb: this.state.blurb,
@@ -51,7 +47,7 @@ export class College extends Component {
     this.state.edit("CollegeEditor", content)
   }
 
-  render() {
+  render = () => {
     return (
       <Layout>
         <Row>

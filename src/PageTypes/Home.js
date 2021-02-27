@@ -14,35 +14,29 @@ export class Home extends Component {
       settings: props.settings,
       favorites: props.favorites
     }
-    this.college = this.college.bind(this)
-    this.scholarship = this.scholarship.bind(this)
-    this.apprenticeship = this.apprenticeship.bind(this)
-    this.job = this.job.bind(this)
-    this.searched = this.searched.bind(this)
   }
 
-  searched(query) {
+  searched = (query) => {
     this.state.category("Search", query)
   }
 
-  college() {
+  college = () => {
     this.state.category("College", "")
   }
 
-  scholarship() {
+  scholarship = () => {
     this.state.category("Scholarships", "")
   }
 
-  apprenticeship() {
+  apprenticeship = () => {
     this.state.category("Apprenticeships", "")
   }
 
-  job() {
+  job = () => {
     this.state.category("Jobs", "")
   }
 
-  render() {
-
+  render = () => {
     return (
       <Layout>
         <Row>

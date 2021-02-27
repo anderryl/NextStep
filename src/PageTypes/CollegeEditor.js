@@ -21,47 +21,41 @@ export default class CollegeEditor extends Component {
       uid: props.uid,
       home: props.home
     }
-    this.home = this.home.bind(this)
-    this.college = this.college.bind(this)
-    this.title = this.title.bind(this)
-    this.description = this.description.bind(this)
-    this.link = this.link.bind(this)
-    this.blurb = this.blurb.bind(this)
   }
 
-  home() {
+  home = () => {
     this.state.home()
   }
 
-  college(content) {
+  college = (content) => {
     this.state.category("College", "", content)
   }
 
-  title(event) {
+  title = (event) => {
     this.setState({
       title: event.target.value
     })
   }
 
-  blurb(event) {
+  blurb = (event) => {
     this.setState({
       blurb: event.target.value
     })
   }
 
-  description(event) {
+  description = (event) => {
     this.setState({
       description: event.target.value
     })
   }
 
-  link(event) {
+  link = (event) => {
     this.setState({
       link: event.target.value
     })
   }
 
-  render() {
+  render = () => {
     return (
       <Layout>
         <Row>

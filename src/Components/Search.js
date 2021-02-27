@@ -14,13 +14,9 @@ class Search extends Component {
       onChange: props.onChange,
       realtime: props.realtime ?? false
     }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({
       value: event.target.value
     })
@@ -29,16 +25,16 @@ class Search extends Component {
     }
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     this.state.onSearch(this.state.value)
     event.preventDefault()
   }
 
-  handleClick() {
+  handleClick = () => {
     this.state.onSearch(this.state.value)
   }
 
-  render() {
+  render = () => {
     return (
       <Form onSubmit= {this.handleSubmit}>
         <Form.Row>

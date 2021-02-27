@@ -13,7 +13,7 @@ import JobEditor from "./PageTypes/JobEditor"
 import ScholarshipEditor from "./PageTypes/ScholarshipEditor"
 import CollegeEditor from "./PageTypes/CollegeEditor"
 import ApprenticeshipEditor from "./PageTypes/ApprenticeshipEditor"
-import { Settings } from "./PageTypes/Settings"
+import Settings from "./PageTypes/Settings"
 import { forceUpdate } from "./ForceUpdate"
 import DexieContext from "./Contexts/DexieContext"
 import Favorites from "./PageTypes/Favorites"
@@ -23,17 +23,6 @@ export class App extends Component {
     //Initiate new App
     super(props)
 
-    //Bind all functions to this instance of App
-    this.category = this.category.bind(this)
-    this.page = this.page.bind(this)
-    this.home = this.home.bind(this)
-    this.updateDexie = this.updateDexie.bind(this)
-    this.refresher = this.refresh.bind(this)
-    this.add = this.add.bind(this)
-    this.edit = this.edit.bind(this)
-    this.settings = this.settings.bind(this)
-    this.favorites = this.favorites.bind(this)
-    this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
 
     //Set preliminary state
     this.state = {
@@ -44,7 +33,7 @@ export class App extends Component {
     }
   }
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     //Retreive info from local database if possible
     const info = await db.listings.toArray()
     //Create firebase object with user refresh callback
@@ -63,13 +52,13 @@ export class App extends Component {
     this.addOpenListener()
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     //Remove listener before app closes
     window.removeEventListener('online', () => this.updateDexie(this.state.firebase))
     this.removeOpenListener()
   }
 
-  addOpenListener() {
+  addOpenListener = () => {
     var visibilityChange;
     if (typeof document.hidden !== undefined) {
       visibilityChange = "visibilitychange";
@@ -87,7 +76,7 @@ export class App extends Component {
     window.addEventListener(visibilityChange, this.handleVisibilityChange, false);
   }
 
-  removeOpenListener() {
+  removeOpenListener = () => {
     var visibilityChange;
     if (typeof document.hidden !== undefined) {
       visibilityChange = "visibilitychange";
@@ -105,13 +94,13 @@ export class App extends Component {
     window.removeEventListener(visibilityChange, this.handleVisibilityChange, false);
   }
 
-  handleVisibilityChange() {
+  handleVisibilityChange = () => {
     if (document.visibilityState === "visible") {
       forceUpdate()
     }
   }
 
-  async updateDexie(firebase) {
+  updateDexie = async (firebase) => {
     var cont = await firebase.retreiveContents()
     //Write those contents to the local dexie database
     db.transaction('rw', db.listings, async () => {
@@ -124,11 +113,11 @@ export class App extends Component {
     })
   }
 
-  refresh(user) {
+  refresher = (user) => {
     forceUpdate()
   }
 
-  home() {
+  home = () => {
     //Set navigation target to home with no props
     this.setState({
       location: "Home",
@@ -136,7 +125,7 @@ export class App extends Component {
     })
   }
 
-  async category(type, query, fragment) {
+  category = async (type, query, fragment) => {
     //Set navigation target to category with query as props
     //If there is an add-fragment, append new fragment to the contents list
     if (fragment) {
@@ -162,7 +151,7 @@ export class App extends Component {
     }
   }
 
-  page(type, fragment) {
+  page = (type, fragment) => {
     //Navigate to a specific page type with specific props
     this.setState({
       location: type,
@@ -170,14 +159,14 @@ export class App extends Component {
     })
   }
 
-  settings() {
+  settings = () => {
     this.setState({
       location: "Settings",
       props: {}
     })
   }
 
-  add(type) {
+  add = (type) => {
     //Navigate to a new editor page of a specific type
     this.setState({
       location: type,
@@ -188,13 +177,13 @@ export class App extends Component {
     })
   }
 
-  favorites() {
+  favorites = () => {
     this.setState({
       location: "Favorites",
     })
   }
 
-  edit(type, fragment) {
+  edit = (type, fragment) => {
     var file
     for (file of this.state.contents) {
       if (file.uid === fragment.uid) {
@@ -208,7 +197,7 @@ export class App extends Component {
     })
   }
 
-  render() {
+  render = () => {
     //Render a specific page based on navigation target
     var ret
     if (this.state.location === "Home") {

@@ -28,7 +28,7 @@ export default class Favorites extends Component {
     this.searched = this.searched.bind(this)
   }
 
-  searched(query) {
+  searched = (query) => {
     if (!this.state.order) {
       return
     }
@@ -54,15 +54,15 @@ export default class Favorites extends Component {
     })
   }
 
-  clicked(fragment) {
+  clicked = (fragment) => {
     this.state.page(fragment.type, fragment)
   }
 
-  home() {
+  home = () => {
     this.state.home()
   }
 
-  render () {
+  render = () => {
     return (
       <DexieContext.Consumer>
         { dexie => {

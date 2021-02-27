@@ -12,7 +12,7 @@ class Favicon extends Component {
     }
   }
 
-  render() {
+  render = () => {
     return (
       <DexieContext.Consumer>
         {

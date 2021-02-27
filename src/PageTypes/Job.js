@@ -26,25 +26,21 @@ export class Job extends Component {
       uid: props.uid,
       edit: props.edit
     }
-    this.home = this.home.bind(this)
-    this.jobs = this.jobs.bind(this)
-    this.delete = this.delete.bind(this)
-    this.edit = this.edit.bind(this)
   }
 
-  home() {
+  home = () => {
     this.state.home()
   }
 
-  jobs() {
+  jobs = () => {
     this.state.category("Jobs", "", null)
   }
 
-  delete(firebase) {
+  delete = (firebase) => {
     firebase.deleteDocument(this.state.uid)
   }
 
-  edit() {
+  edit = () => {
     const content = {
       title: this.state.title,
       blurb: this.state.blurb,
@@ -65,7 +61,7 @@ export class Job extends Component {
     this.state.edit("JobsEditor", content)
   }
 
-  render() {
+  render = () => {
     return (
       <Layout>
         <Row>

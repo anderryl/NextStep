@@ -35,19 +35,15 @@ export class Category extends Component {
       add: props.add,
       allowed: undefined
     }
-    this.clicked = this.clicked.bind(this)
-    this.home = this.home.bind(this)
-    this.searched = this.searched.bind(this)
-    this.add = this.add.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     if (this.state.query !== "" && this.state.query !== undefined) {
       this.searched(this.state.query)
     }
   }
 
-  searched(query) {
+  searched = (query) => {
     const fuse = new Fuse(this.state.contents, {
       keys: [{
         name: "title",
@@ -70,19 +66,19 @@ export class Category extends Component {
     })
   }
 
-  clicked(fragment) {
+  clicked = (fragment) => {
     this.state.page(fragment.type, fragment)
   }
 
-  home() {
+  home = () => {
     this.state.home()
   }
 
-  add() {
+  add = () => {
     this.state.add(this.state.type + "Editor")
   }
 
-  render () {
+  render = () => {
     var rets = [
       <Row key = "menu">
         <Col>

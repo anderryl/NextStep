@@ -19,7 +19,7 @@ class OperationBar extends Component {
     }
   }
 
-  render() {
+  render = () => {
     return (
       <FirebaseContext.Consumer>
         {

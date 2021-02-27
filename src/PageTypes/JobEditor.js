@@ -28,96 +28,83 @@ export default class JobEditor extends Component {
       uid: props.uid,
       blurb: props.blurb ?? ""
     }
-    this.home = this.home.bind(this)
-    this.jobs = this.jobs.bind(this)
-    this.title = this.title.bind(this)
-    this.pay = this.pay.bind(this)
-    this.days = this.days.bind(this)
-    this.description = this.description.bind(this)
-    this.requirements = this.requirements.bind(this)
-    this.link = this.link.bind(this)
-    this.location = this.location.bind(this)
-    this.work = this.work.bind(this)
-    this.employer = this.employer.bind(this)
-    this.hours = this.hours.bind(this)
-    this.blurb = this.blurb.bind(this)
   }
 
-  home() {
+  home = () => {
     this.state.home()
   }
 
-  jobs(content) {
+  jobs = (content) => {
     this.state.category("Jobs", "", content)
   }
 
-  title(event) {
+  title = (event) => {
     this.setState({
       title: event.target.value
     })
   }
 
-  blurb(event) {
+  blurb = (event) => {
     this.setState({
       blurb: event.target.value
     })
   }
 
-  pay(event) {
+  pay = (event) => {
     this.setState({
       pay: event.target.value
     })
   }
 
-  days(event) {
+  days = (event) => {
     this.setState({
       days: event.target.value
     })
   }
 
-  description(event) {
+  description = (event) => {
     this.setState({
       description: event.target.value
     })
   }
 
-  requirements(event) {
+  requirements = (event) => {
     this.setState({
       requirements: event.target.value
     })
   }
 
-  link(event) {
+  link = (event) => {
     this.setState({
       link: event.target.value
     })
   }
 
-  work(event) {
+  work = (event) => {
     this.setState({
       work: event.target.value
     })
   }
 
-  hours(event) {
+  hours = (event) => {
     this.setState({
       hours: event.target.value
     })
   }
 
-  employer(event) {
+  employer = (event) => {
     this.setState({
       employer: event.target.value
     })
   }
 
-  location(event) {
+  location = (event) => {
     this.setState({
       location: event.target.value
     })
   }
 
-  render() {
+  render = () => {
     return (
       <Layout>
         <Row>

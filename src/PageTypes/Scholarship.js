@@ -22,25 +22,21 @@ export class Scholarship extends Component {
       uid: props.uid,
       edit: props.edit
     }
-    this.home = this.home.bind(this)
-    this.scholarships = this.scholarships.bind(this)
-    this.delete = this.delete.bind(this)
-    this.edit = this.edit.bind(this)
   }
 
-  home() {
+  home = () => {
     this.state.home()
   }
 
-  scholarships() {
+  scholarships = () => {
     this.state.category("Scholarships", "", null)
   }
 
-  delete(firebase) {
+  delete = (firebase) => {
     firebase.deleteDocument(this.state.uid)
   }
 
-  edit() {
+  edit = () => {
     const content = {
       title: this.state.title,
       blurb: this.state.blurb,
@@ -57,7 +53,7 @@ export class Scholarship extends Component {
     this.state.edit("ScholarshipsEditor", content)
   }
 
-  render() {
+  render = () => {
     return (
       <Layout>
         <Row>
