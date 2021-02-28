@@ -17,8 +17,8 @@ class Favicon extends Component {
       <DexieContext.Consumer>
         {
           dexie => {
-            if (this.state.status == undefined) {
-              dexie.favorites.where("uid").equals(this.state.uid).toArray().then(result => this.setState({status: result[0] != undefined}))
+            if (this.state.status === undefined) {
+              dexie.favorites.where("uid").equals(this.state.uid).toArray().then(result => this.setState({status: result[0] !== undefined}))
             }
             if (this.state.status) {
               return (

@@ -6,8 +6,6 @@ import Breadcrumb from "react-bootstrap/Breadcrumb"
 import { Layout } from "../Components/Layout"
 import { HeaderWrapper } from "../Components/Wrappers"
 import Fuse from "fuse.js"
-import FirebaseContext from "../Contexts/FirebaseContext"
-import Image from 'react-bootstrap/Image'
 import DexieContext from "../Contexts/DexieContext"
 
 export default class Favorites extends Component {
@@ -23,9 +21,6 @@ export default class Favorites extends Component {
       allowed: undefined,
       favorites: undefined
     }
-    this.clicked = this.clicked.bind(this)
-    this.home = this.home.bind(this)
-    this.searched = this.searched.bind(this)
   }
 
   searched = (query) => {
@@ -90,7 +85,7 @@ export default class Favorites extends Component {
               for (item of this.state.contents) {
                 var comp
                 for (comp of favs) {
-                  if (comp.uid == item.uid) {
+                  if (comp.uid === item.uid) {
                     processed.push(item)
                   }
                 }

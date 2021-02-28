@@ -211,7 +211,6 @@ export class App extends Component {
       ret = <Category query = {props.query} type = {props.type} page = {this.page} home = {this.home} add = {this.add} contents = {this.state.contents} />
     }
     else if (this.state.location === "Favorites") {
-      const props = this.state.props
       ret = <Favorites page = {this.page} home = {this.home} contents = {this.state.contents} />
     }
     else if (this.state.location === "Scholarships") {

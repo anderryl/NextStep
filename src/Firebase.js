@@ -31,7 +31,6 @@ class Firebase {
 
   changed = (user) => {
     this.user = user
-    console.log(user)
     this.callback(user)
   }
 
@@ -42,8 +41,6 @@ class Firebase {
       if (result.credential) {
         this.token = result.credential.accessToken;
       }
-
-      console.log(result.user);
       this.user = result.user;
       this.callback(result.user);
     }).catch(function(error) {
@@ -84,8 +81,6 @@ class Firebase {
     const snapshot = await this.firestore.collection('allowed-users').get()
     const list = snapshot.docs.map(doc => doc.data())
     this.allowed = list
-    console.log(list)
-    var perm
     for (perm of list) {
       if (uid === perm.uid) {
         return true
