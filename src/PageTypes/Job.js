@@ -5,6 +5,7 @@ import { Layout } from "../Components/Layout"
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import OperationBar from "../Components/OperationBar"
 import Favicon from "../Components/Favicon"
+import { CustomLink } from "../Components/CustomLink"
 
 export class Job extends Component {
   constructor(props) {
@@ -125,7 +126,7 @@ export class Job extends Component {
         <Row>
           <Col>
             <h4>Apply:</h4>
-            <a href={"https://" + this.state.link}>{this.state.link}</a>
+            <CustomLink link = {this.state.link} />
           </Col>
         </Row>
         <hr width = {0}></hr>
