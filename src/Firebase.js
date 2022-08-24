@@ -77,6 +77,7 @@ class Firebase {
         }
       }
       return false
+      //test
     }
     const snapshot = await this.firestore.collection('allowed-users').get()
     const list = snapshot.docs.map(doc => doc.data())
